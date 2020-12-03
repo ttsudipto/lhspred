@@ -1,0 +1,8 @@
+Clinical features,Min,Max,IQR,Median,F-value,p-value
+Age,19.0,80.0,22.25,44.0,26.957,5.8858247555594385e-07
+White blood cell (WBC) count,1.01,14.42,2.015,4.57,0.776,0.37972756284762466
+Neutrophil-to-lymphocyte ratio (NLR),0.679,7.853,1.775,2.655,46.191,1.7349516984631412e-10
+Aspartate aminotransferase (AST),10.0,78.81,9.51,24.45,24.58,1.7141876157977677e-06
+Albumin,23.8,46.6,5.177,37.535,71.307,1.3023589159807972e-14
+Lactic dehydrogenase (LDH),7.1,565.0,75.6,179.05,61.256,5.1049312827623861e-13
+C-reactive protein (CRP),0.01,120.0,30.71,18.365,88.686,3.2832033089025138e-17
