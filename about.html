@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>About - LHSPred</title>
+        <link rel = "stylesheet" type = "text/css" href = "css/main.css" />
+    </head>
+    <body>
+        <div class = "section_header">
+            <center><p class="title">LHSPred - Lung Health Severity Prediction</p></center>
+        </div>
+
+        <div class = "section_menu">
+            <center>
+            <table cellpadding="3px">
+                <tr class="nav">
+                    <td class="nav"><a href="index.html" class="side_nav">Home</a></td>
+                    <td class="nav"><a href="#" class="active">About</a></td>
+                    <td class="nav"><a href="help.html" class="side_nav">Help</a></td>
+                    <td class="nav"><a href="datasets.php?type=tt" class="side_nav">Datasets</a></td>
+                    <td class="nav"><a href="team.html" class="side_nav">Team</a></td>
+                </tr>
+            </table>
+            </center>
+        </div>
+
+        <!--<div class = "section_left"></div>-->
+        
+        <div class = "section_middle">
+            <center><h1>Utility</h1></center>
+            <ul class="intro">
+                <li>
+                    Patients can use this tool to check risk of pneumonia with only seven blood 
+                    tests. It does not require any radiological examination.
+                </li>
+                <li>
+                    Doctors can also use it for pneumonia risk prediction. It can enable them to 
+                    order further investigations for patients with high risk to provide improved 
+                    treatment.
+                </li>
+                <li>
+                    It can also be used by COVID-recovered patients to assess their post-COVID 
+                    lung health regularly.
+                </li>
+            </ul>
+            <center><h1>Dataset</h1></center>
+            <p class="intro">
+                The dataset contains 247 COVID patients from the publicly available dataset 
+                published by <a href="https://doi.org/10.1038/s41467-020-18786-x">Feng,Z. <i>et al.</i></a> 
+                which was originally used to predict the risk of progression of coronavirus 
+                pneumonia. The data was split randomly into training and validation datasets 
+                in 70:30 ratio for training and testing the regression models respectively 
+                for prediction. To check out the datasets, please go to the 
+                <a href="datasets.php?type=tt">Datasets</a> page.
+            </p><br/>
+            <p class="intro">
+                Features used :
+                <ul class="intro">
+                    <li>Age</li>
+                    <li>Neutrophil-lymphocyte ratio (NLR)</li>
+                    <li>Aspartate aminotransferase (AST)</li>
+                    <li>Albumin</li>
+                    <li>Lactic dehydrogenase (LDH)</li>
+                    <li>C-reactive protein (CRP)</li>
+                </ul>
+            </p>
+            <center><h1>CT severity score</h1></center>
+            <p class="intro">
+                Feng,Z. <i>et al.</i> proposed a method to compute CT (computed tomography) severity score 
+                that evaluates the extent of lesions in every lung lobe. Each lobe is scored in the range 
+                0 to 5 as per the table given below. The score of each of the five lung lobes is added to 
+                get the CT severity score in the range 0 to 25. 
+            </p><br/>
+            <center>
+            <table border="1" cellpadding="5px" style="border-collapse:collapse;text-align:center;">
+                <tr>
+                    <td style="background-color:lightgrey;">Score</td>
+                    <td style="background-color:lightgrey;">Criteria</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>No involvement of lesions</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>&le; 5% involvement</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>6-25% involvement</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>26-50% involvement</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>51-75% involvement</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>&gt;75% involvement</td>
+                </tr>
+            </table>
+            </center><br/>
+            <center><h1>Prediction methodology</h1></center>
+            <p class="intro">
+                <i>Support Vector Regressor (SVR)</i> and <i>Multi-layer Perceptron Regressor (MLPR)</i> models were 
+                trained using the patient clinical data in the training dataset to compute the CT severity score. The 
+                models were tested using the data in validation dataset. The density of CT severity scores was 
+                computed for patients with high risk (<i>f<sub>high</sub></i>) and low risk (<i>f<sub>low</sub></i>) 
+                of pneumonia. Confidence of low risk of pneumonia was computed as :
+            </p><br/>
+            <center><img src="images/low_conf.png" width="120" height="40" /></center><br/>
+            <p class="intro">
+                and confidence of high risk of pneumonia as : 
+            </p><br/>
+            <center><img src="images/low_conf.png" width="120" height="40" /></center><br/>
+            <p class="intro">
+                where <i>s</i> is the predicted CTSS. The confidence values of risk of pneumonia for different 
+                predicted CT severity scores are given in the table below :
+            </p><br/>
+            <center>
+            <table class="intro" border="1" cellpadding="5px" style="border-collapse:collapse; text-align:center;">
+                <tr>
+                    <td style="background-color:lightgrey;">Predicted CT severity score</td>
+                    <td style="background-color:lightgrey;">Confidence range of low risk of pneumonia (%)</td>
+                    <td style="background-color:lightgrey;">Confidence range of high risk of pneumonia (%)</td>
+                    <td style="background-color:lightgrey;">Absolute difference between high and low risk of pneumonia (%)</td>
+                </tr>
+                <tr>
+                    <td>0-2</td>
+                    <td>99.39 - 90.64</td>
+                    <td>0 - 1.64</td>
+                    <td>99.39 - 89</td>
+                </tr>
+                <tr>
+                    <td>2-4</td>
+                    <td>88.57 - 71.28</td>
+                    <td>2.02 - 5.08</td>
+                    <td>86.55 - 66.2</td>
+                </tr>
+                <tr>
+                    <td>4-6</td>
+                    <td>68.69 - 51.62</td>
+                    <td>5.54 - 8.98</td>
+                    <td>63.15 - 42.64</td>
+                </tr>
+                <tr>
+                    <td>6-8</td>
+                    <td>49.27 - 33.36</td>
+                    <td>9.61 - 15.91</td>
+                    <td>39.66 - 17.45</td>
+                </tr>
+                <tr>
+                    <td>8-10</td>
+                    <td>31.24 - 19</td>
+                    <td>17.14 - 27.91</td>
+                    <td>14.1 - 8.91</td>
+                </tr>
+                <tr>
+                    <td>10-12</td>
+                    <td>19 - 10.95</td>
+                    <td>27.91 - 40.37</td>
+                    <td>8.91 - 29.42</td>
+                </tr>
+                <tr>
+                    <td>12-14</td>
+                    <td>10.95 - 3.99</td>
+                    <td>40.37 - 51.3</td>
+                    <td>29.42 - 47.31</td>
+                </tr>
+                <tr>
+                    <td>14-16</td>
+                    <td>3.99 - 1.26</td>
+                    <td>51.3 - 65.89</td>
+                    <td>47.31 - 64.63</td>
+                </tr>
+                <tr>
+                    <td>16-18</td>
+                    <td>1.26 - 0.28</td>
+                    <td>65.89 - 78.77</td>
+                    <td>64.63 - 78.49</td>
+                </tr>
+                <tr>
+                    <td>18-20</td>
+                    <td>0.28 - 0</td>
+                    <td>78.77 - 85.17</td>
+                    <td>78.49 - 85.17</td>
+                </tr>
+                <tr>
+                    <td>20-22</td>
+                    <td>0 - 0</td>
+                    <td>85.17 - 89.27</td>
+                    <td>85.17 - 89.27</td>
+                </tr>
+                <tr>
+                    <td>22-25</td>
+                    <td>0 - 0</td>
+                    <td>89.27 - 96.97</td>
+                    <td>89.27 - 96.97</td>
+                </tr>
+            </table>
+            </center><br/>
+            <p class="intro">
+                For predicted CT severity scores of less than 6, confidence of low risk of pneumonia is greater than 50%. For 
+                predicted CT severity scores of greater than 14, confidence of high risk of pneumonia is greater than 50%. 
+                For scores between 6 and 14, confidences of both high and low risk of pneumonia are below 50%. Thus, the 
+                classification can be made by selecting the maximum confidence for such scores.
+            </p>
+            <br/><hr/>
+            <p>&nbsp;</p>
+        </div>
+    </body>
+</html>

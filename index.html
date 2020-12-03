@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Home - LHSPred</title>
+        <link rel = "stylesheet" type = "text/css" href = "css/main.css" />
+        <script>
+            var demoData = [[30,4.86,1.26,13.9,39.36,137,0.32], [54,6.48,5.064,20,30.24,331.3,120]];
+            function addDemoData(index) {
+                var data = demoData[index];
+                for(var i=0; i<data.length; ++i)
+//                     alert('inp'+i+document.getElementById('inp'+i));
+                    document.getElementById('inp'+i).value = data[i];
+            }
+        </script>
+    </head>
+    <body>
+        <div class = "section_header">
+            <center><p class="title">LHSPred - Lung Health Severity Prediction</p></center>
+        </div>
+
+        <div class = "section_menu">
+            <center>
+            <table cellpadding="3px">
+                <tr class="nav">
+                    <td class="nav"><a href="#" class="active">Home</a></td>
+                    <td class="nav"><a href="about.html" class="side_nav">About</a></td>
+                    <td class="nav"><a href="help.html" class="side_nav">Help</a></td>
+                    <td class="nav"><a href="datasets.php?type=tt" class="side_nav">Datasets</a></td>
+                    <td class="nav"><a href="team.html" class="side_nav">Team</a></td>
+                </tr>
+            </table>
+            </center>
+        </div>
+
+        <!--<div class = "section_left"></div>-->
+        
+        <div class = "section_middle">
+            <br/>
+            <p class="intro">
+                <b>LHSPred</b> is a web based tool that enables users to predict risk of 
+                pneumonia with clinical examination features. It uses Support Vector Regressor 
+                (SVR) and Multi-layer Perceptron Regressor (MLPR) trained with COVID patients' 
+                data to determine a score that evaluates the involvement of lesions in the lungs. 
+                This computed score is then used to predict risk of pneumonia.
+            </p><br/>
+            <p class="intro">
+                To know more about LHSPred, go to <a href="about.html">About</a> page. For help, 
+                please refer to <a href="help.html">Help</a> page.
+            </p>
+            <br/><hr/>
+            <p style="font-size:0.8em;text-align:center;">
+                <b><i>Note: All fields are manadtory.</i></b> In case any feature is not available, 
+                please use a suitable value according to age from the table of normal ranges given below.
+            </p>
+            <form action = "prediction.php" method = "POST">
+                <table class = "form" border = "0" id = "stable">
+                    <tr>
+                        <td style="padding-left : 5px;">Age (years)</td>
+                        <td><input type = "number" class = "full" min = "1" name = "age" id="inp0" placeholder="Enter Age here" required /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left : 5px;">White blood cell count (x10<sup>9</sup>/L)</td>
+                        <td><input type = "number" class = "full" min = "0" step = "0.001" name = "wbc" id="inp1" placeholder="Enter WBC count here" required /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left : 5px;">Neutrophil-to-Lymphocyte ratio</td>
+                        <td><input type = "number" class = "full" min = "0" step = "0.001" name = "nlr" id="inp2" placeholder="Enter NLR value here" required /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left : 5px;">Aspartate transaminase - AST (U/L)</td>
+                        <td><input type = "number" class = "full" min = "0" step = "0.001" name = "ast" id="inp3" placeholder="Enter AST value here" required /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left : 5px;">Albumin (g/L)</td>
+                        <td><input type = "number" class = "full" min = "0" step = "0.001" name = "albumin" id="inp4" placeholder="Enter Albumin value here" required /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left : 5px;">Lactate dehydrogenase - LDH (U/L)</td>
+                        <td><input type = "number" class = "full" min = "0" step = "0.001" name = "ldh" id="inp5" placeholder="Enter LDH value here" required /></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left : 5px;">C-reactive protein (mg/L)</td>
+                        <td><input type = "number" class = "full" min = "0" step = "0.001" name = "crp" id="inp6" placeholder="Enter CRP value here" required /></td>
+                    </tr>
+                </table>
+                <br/>
+                <table class = "form" border = "0">
+                    <tr>
+                        <th>Regression model</th>
+                        <td><center><input type = "radio" name = "model_id" value = "SVR" checked /><br/>Support Vector Regressor (SVR)</center></td>
+                        <td><center><input type = "radio" name = "model_id" value = "MLPR"/><br/>Multi-layer Perceptron Regressor (MLPR)</center></td>
+<!--                         <td><center><input type = "radio" name = "model_id" value = "x"/><br/>x</center></td> -->
+                    </tr>
+                </table>
+                <br/>
+                <center>
+                    <input type = "submit" value = "Submit" />
+                    <input type = "reset" value = "  Reset  " />
+                    <br/><br/>
+                    <input type="button" onclick="addDemoData(0)" value="Insert sample data 1" />
+                    <input type="button" onclick="addDemoData(1)" value="Insert sample data 2" />
+                </center>
+            </form>
+            <p><b>Normal ranges * : </b><p>
+            <table border=1 cellpadding="3px" style="border-collapse:collapse; font:0.85em Arial; width:100%;">
+                <tr>
+                    <th colspan="2">WBC (x 10<sup>9</sup>/L)</th>
+                    <th rowspan="2">NLR</th>
+                    <th colspan="2">AST (U/L)</th>
+                    <th rowspan="2">Albumin (g/L)</th>
+                    <th rowspan="2" colspan="1">LDH (U/L)</th>
+                    <th rowspan="2">CRP (mg/L)</th>
+                </tr>
+                <tr>
+                    <th colspan="1">Males</th>
+                    <th colspan="1">Females</th>
+                    <th colspan="1">Males</th>
+                    <th colspan="1">Females</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li><b>0-14 days:</b> 8.0-15.4</li>
+                            <li><b>15 days - 4 weeks:</b> 7.8-15.9</li>
+                            <li><b>5-7 weeks:</b> 8.1-15.0</li>
+                            <li><b>8 weeks - 5 months:</b> 6.5-13.3</li>
+                            <li><b>6-23 months:</b> 6.0-13.5</li>
+                            <li><b>24-35 months:</b> 5.1-13.4</li>
+                            <li><b>3-5 years:</b> 4.4-12.9</li>
+                            <li><b>6-17 years:</b> 3.8-10.4</li>
+                            <li><b>Adults:</b> 3.4-9.6</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><b>0-14 days:</b> 8.2-14.6</li>
+                            <li><b>15 days - 4 weeks:</b> 8.4-14.4</li>
+                            <li><b>5-7 weeks:</b> 7.1-14.7</li>
+                            <li><b>8 weeks - 5 months:</b> 6.0-13.3</li>
+                            <li><b>6-23 months:</b> 6.5-13.0</li>
+                            <li><b>24-35 months:</b> 4.9-13.2</li>
+                            <li><b>3-5 years:</b> 4.4-12.9</li>
+                            <li><b>6-17 years:</b> 3.8-10</li>
+                            <li><b>Adults:</b> 3.4-9.6</li>
+                        </ul>
+                    </td>
+                    <td rowspan="1"><center>0.78-3.53</center></td>
+                    <td>
+                        <ul>
+                            <li><b>1-13 years:</b> 8-60</li>
+                            <li><b>&gt;13 years:</b> 8-48</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><b>1-13 years:</b> 8-50</li>
+                            <li><b>&gt;13 years:</b> 8-43</li>
+                        </ul>
+                    </td>
+                    <td rowspan="1"><center>35-50</center></td>
+                    <td>
+                        <ul>
+                            <li><b>1-30 days:</b> 135-750</li>
+                            <li><b>31 days-11 months:</b> 180-435</li>
+                            <li><b>1-3 years:</b> 160-370</li>
+                            <li><b>4-6 years:</b> 145-345</li>
+                            <li><b>7-9 years:</b> 143-290</li>
+                            <li><b>10-12 years:</b> 120-293</li>
+                            <li><b>13-15 years:</b> 110-283</li>
+                            <li><b>16-17 years:</b> 105-233</li>
+                            <li><b>&gt;=18 years:</b> 122-222</li>
+                        </ul>
+                    </td>
+                    <td rowspan="1"><center>&lt;= 8</center></td>
+                </tr>
+            </table>
+            <p style="font-size:0.8em;//text-align:center;">
+                <b><i>* Data taken from Mayo Clinic Laboratories 
+                <a href="https://www.mayocliniclabs.com/test-catalog/">Test catalog</a> and 
+                <a href="https://doi.org/10.1186/s13104-016-2335-5">Forget, P. et al.</a>.</i></b>
+            </p>
+            <br/><hr/>
+            <p>&nbsp;</p>
+        </div>
+    </body>
+</html> 

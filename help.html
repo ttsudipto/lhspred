@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Help - LHSPred</title>
+        <link rel = "stylesheet" type = "text/css" href = "css/main.css" />
+    </head>
+    <body>
+        <div class = "section_header">
+            <center><p class="title">LHSPred - Lung Health Severity Prediction</p></center>
+        </div>
+
+        <div class = "section_menu">
+            <center>
+            <table cellpadding="3px">
+                <tr class="nav">
+                    <td class="nav"><a href="index.html" class="side_nav">Home</a></td>
+                    <td class="nav"><a href="about.html" class="side_nav">About</a></td>
+                    <td class="nav"><a href="#" class="active">Help</a></td>
+                    <td class="nav"><a href="datasets.php?type=tt" class="side_nav">Datasets</a></td>
+                    <td class="nav"><a href="team.html" class="side_nav">Team</a></td>
+                </tr>
+            </table>
+            </center>
+        </div>
+
+        <!--<div class = "section_left"></div>-->
+        
+        <div class = "section_middle">
+            <center><h1>Providing inputs</h1></center>
+            <ul class="intro">
+                <li>
+                    Users need to fill up all the fields in the input form. It consists of 
+                    seven clinical features - Age, Neutrophil-lymphocyte ratio (NLR), 
+                    Aspartate aminotransferase (AST), Albumin, Lactic dehydrogenase (LDH), 
+                    and C-reactive protein (CRP). In case any feature is not available, 
+                    users can use the table of normal ranges given below the form to input 
+                    an appropriate normal value according to age. 
+                </li><br/>
+                <li>
+                    Users also need to choose a regressor to be used for the prediction. 
+                    There are two options - Support Vector Regressor (SVR) and Multi-layer 
+                    Perceptron Regressor (MLPR). 
+                </li><br/>
+                <li>
+                    After providing inputs, users need to click on the "Submit" button to get 
+                    output.
+                </li><br/>
+                <li>
+                    Users can click on the the reset button to clear all inputs in the form.
+                </li><br/>
+                <li>
+                    Users can use the "Insert sample data 1" and "Insert sample data 2" buttons 
+                    to insert two different sets of demonstrative data for testing purposes.
+                </li><br/>
+            </ul>
+            <img src="images/input_desc.png" class="intro" /> <br/><hr/>
+            <center><h1>Understanding the output</h1></center>
+            <ul class="intro">
+                <li>
+                    In the output page, the inputs provided are displayed first alongwith the
+                    chosen regressor. A "Check again" button is present to take users back to 
+                    the input page.
+                </li><br/>
+                <img src="images/output_desc_1.png" class="intro" /> <br/>
+                <li>
+                    Next, the predicted CT severity score and the confidences of high and low 
+                    risk of pneumonia are displayed. For more details on the prediction 
+                    methodology, please refer to the <a href="about.html">About</a> page.
+                </li><br/>
+                <img src="images/output_desc_2.png" class="intro" /> <br/>
+                <li>
+                    A plot of density curves and the predicted CT severity score is displayed.
+                    This plot is interactive. Hovering on the graph shows a menu in the right 
+                    upper corner. Users can perform many operations like zoom, pan and download 
+                    the graph through the menu bar.
+                </li><br/>
+                <img src="images/output_desc_3.png" class="intro" /> <br/>
+            </ul>
+            <br/><hr/>
+            <p>&nbsp;</p>
+        </div>
+    </body>
+</html>
