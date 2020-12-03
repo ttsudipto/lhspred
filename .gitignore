@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+venv*
+.directory
+*.kdev4
+.kdev4/
+.directory
