@@ -43,7 +43,7 @@
                     lung health regularly.
                 </li>
             </ul>
-            <center><h1>Dataset</h1></center>
+            <center><h1 id="dataset">Dataset</h1></center>
             <p class="intro">
                 The dataset contains 247 COVID patients from the publicly available dataset 
                 published by <a href="https://doi.org/10.1038/s41467-020-18786-x">Feng,Z. <i>et al.</i></a> 
@@ -53,7 +53,7 @@
                 for prediction. To check out the datasets, please go to the 
                 <a href="datasets.php?type=tt">Datasets</a> page.
             </p><br/>
-            <p class="intro">
+            <p class="intro" id="features">
                 Features used :
                 <ul class="intro">
                     <li>Age</li>
@@ -64,7 +64,7 @@
                     <li>C-reactive protein (CRP)</li>
                 </ul>
             </p>
-            <center><h1>CT severity score</h1></center>
+            <center><h1 id="ctss">CT severity score</h1></center>
             <p class="intro">
                 Feng,Z. <i>et al.</i> proposed a method to compute CT (computed tomography) severity score 
                 that evaluates the extent of lesions in every lung lobe. Each lobe is scored in the range 
@@ -103,7 +103,7 @@
                 </tr>
             </table>
             </center><br/>
-            <center><h1>Prediction methodology</h1></center>
+            <center><h1 id="methodology">Prediction methodology</h1></center>
             <p class="intro">
                 <i>Support Vector Regressor (SVR)</i> and <i>Multi-layer Perceptron Regressor (MLPR)</i> models were 
                 trained using the patient clinical data in the training dataset to compute the CT severity score. The 
