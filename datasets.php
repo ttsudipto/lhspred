@@ -19,6 +19,7 @@
                     <td class="nav"><a href="help.html" class="side_nav">Help</a></td>
                     <td class="nav"><a href="#" class="active">Datasets</a></td>
                     <td class="nav"><a href="team.html" class="side_nav">Team</a></td>
+                    <td class="nav"><a href="https://github.com/ttsudipto/lhspred" class="side_nav">Source (GitHub)</a></td>
                 </tr>
             </table>
             </center>
