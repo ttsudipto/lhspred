@@ -82,7 +82,7 @@
 //                 echo $arg_json;
                 
 //                 $command = "venv3.7/bin/python3 -m python.driver '".$arg_json."' 2>&1";
-                $command = "venv2.7/bin/python2 -m python.driver '".$arg_json."' 2>&1";
+                $command = "venv2.7/bin/python -m python.driver '".$arg_json."' 2>&1";
 //                 echo "<pre>".$command."</pre>\n";
                 exec($command, $out, $status);
                 
