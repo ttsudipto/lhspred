@@ -46,6 +46,7 @@ a.side_nav{
     display : block;
     padding : 5px 15px 5px 15px;
     font-size: 1.2em;
+    font-weight: bold;
     text-decoration : none;
     color : black;
 }
@@ -56,6 +57,7 @@ a.active {
     background-color: #4CAF50;
     color: white;
     font-size: 1.2em;
+    font-weight: bold;
     display : block;
     padding : 5px 15px 5px 15px;
     text-decoration : none;
