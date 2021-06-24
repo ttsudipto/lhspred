@@ -88,7 +88,7 @@ def storeResourceCSV(derivationFileName, validationFileName, trainingFileName, t
                   'lactic dehydrogenase': 'Lactic dehydrogenase - LDH (U/L)',
                   'C-reactive protein': 'C-reactive protein - CRP (mg/L)',
                   'CT severity score': 'CT severity score',
-                  'outcome': 'Outcome'}
+                  'outcome': 'Risk'}
     
     derivationReader = csv.DictReader(derivationFile, delimiter=',')
     validationReader = csv.DictReader(validationFile, delimiter=',')
@@ -99,6 +99,10 @@ def storeResourceCSV(derivationFileName, validationFileName, trainingFileName, t
     
     rowNum = 0
     for row in derivationReader :
+        if row['outcome'] == '0' :
+            row['outcome'] = 'Low'
+        else :
+            row['outcome'] = 'High'
         outRow = dict()
         for k,v in fieldnames.items() :
             outRow[v] = row[k]
@@ -111,6 +115,10 @@ def storeResourceCSV(derivationFileName, validationFileName, trainingFileName, t
         rowNum = rowNum + 1
     
     for row in validationReader :
+        if row['outcome'] == '0' :
+            row['outcome'] = 'Low'
+        else :
+            row['outcome'] = 'High'
         outRow = dict()
         for k,v in fieldnames.items() :
             outRow[v] = row[k]
