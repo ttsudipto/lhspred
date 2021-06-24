@@ -49,8 +49,8 @@
                 The dataset contains 247 COVID-19 patients from the publicly available dataset 
                 published by <a href="https://doi.org/10.1038/s41467-020-18786-x">Feng,Z. <i>et al.</i></a> 
                 which was originally used to predict the risk of progression of coronavirus 
-                pneumonia. The acquired data was split randomly into training (<i>n</i> = 172) 
-                and validation (<i>n</i> = 75) datasets in 70:30 ratio for training and testing 
+                pneumonia. The acquired data was split randomly into training (<i>n</i> = 222) 
+                and validation (<i>n</i> = 25) datasets in 90:10 ratio for training and validating 
                 the regression models respectively. To check out the datasets, please go to the 
                 <a href="datasets.php?type=tt">Datasets</a> page.
             </p><br/>
@@ -106,11 +106,12 @@
             </center><br/>
             <center><h1 id="methodology">Prediction methodology</h1></center>
             <p class="intro">
-                <i>Support Vector Regressor (SVR)</i> and <i>Multi-layer Perceptron Regressor (MLPR)</i> models were 
-                trained using the patient clinical data in the training dataset to compute the CT severity score. The 
-                models were tested using the data in validation dataset. The density of CT severity scores was 
-                computed for patients with high risk (<i>f<sub>high</sub></i>) and low risk (<i>f<sub>low</sub></i>) 
-                of pneumonia. Confidence of low risk of pneumonia was computed as :
+                <i>Support Vector Regression (SVR)</i> and <i>Multi-layer Perceptron Regression (MLPR)</i> models 
+                were trained using the patient data in the training dataset to compute the CT severity score. 
+                Training was performed using 5-fold cross validation. The models were externally validated using 
+                the data in validation dataset. The density of CT severity scores was computed for patients with 
+                high risk (<i>f<sub>high</sub></i>) and low risk (<i>f<sub>low</sub></i>) of pneumonia. Confidence 
+                of low risk of pneumonia was computed as :
             </p><br/>
             <center><img src="images/low_conf.png" width="120" height="40" /></center><br/>
             <p class="intro">
