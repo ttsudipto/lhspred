@@ -1,11 +1,10 @@
 from .resource import DataResource, storeResourceCSV
 from .density import execute as densityExec, compute_positiveness, compute_negativeness, split_pos_neg
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor as DTR
-from sklearn.linear_model import LinearRegression
 from .svr import gridSearchRBF, gridSearchPoly, gridSearchLinear
 from .mlpr import gridSearch1Layer, gridSearch2Layer
-from .pickler import saveModelSVR, saveModelMLPR, testModel, load_model_from_file
+from .pickler import saveModel, testModel, load_model_from_file
+from .model import Model
 import numpy as np
 
 res1 = DataResource('derivation.csv')
@@ -20,7 +19,7 @@ mergedData = np.concatenate((res1.data, res2.data), axis=0)
 mergedTarget = np.concatenate((res1.target, res2.target), axis=0)
 print(mergedData.shape, mergedTarget.shape)
 
-XTrain, XTest, yTrain, yTest = train_test_split(mergedData, mergedTarget, test_size=0.3, random_state=42)
+XTrain, XTest, yTrain, yTest = train_test_split(mergedData, mergedTarget, test_size=0.1, random_state=1)
 dres = DataResource('derivation.csv')
 dres.data = XTrain
 dres.target = yTrain
@@ -31,7 +30,7 @@ print(dres.data.shape, dres.target.shape)
 print(vres.data.shape, vres.target.shape)
 
 #from sklearn.model_selection import ShuffleSplit
-#rs = ShuffleSplit(n_splits=1, test_size=0.3, random_state=42)
+#rs = ShuffleSplit(n_splits=1, test_size=0.1, random_state=1)
 #for train_index, test_index in rs.split(mergedData, mergedTarget):
     #i=0
 #storeResourceCSV('derivation.csv', 'validation.csv', 'tt.csv', 'val.csv', test_index)
@@ -44,6 +43,10 @@ print(vres.data.shape, vres.target.shape)
 #CTScores = np.concatenate((CTScores1, CTScores2), axis=None)
 #outcomes = np.concatenate((outcomes1, outcomes2), axis=None)
 #print(CTScores.shape, outcomes.shape)
+#outcomesTrain, outcomesTest, yTr, yTe = train_test_split(outcomes, mergedTarget, test_size=0.1, random_state=1)
+#CTScoresTrain, CTScoresTest, yTr, yTe = train_test_split(CTScores, mergedTarget, test_size=0.1, random_state=1)
+#print(outcomesTrain.shape, outcomesTest.shape)
+#print(CTScoresTrain.shape, CTScoresTest.shape)
 
 ########################################################
 ##                         F-test                     ##
@@ -95,6 +98,7 @@ print(vres.data.shape, vres.target.shape)
 ########################################################
 ##                 DecisionTreeRegressor              ##
 ########################################################
+#from sklearn.tree import DecisionTreeRegressor as DTR
 #dtrParams = {
         #'criterion' : 'mse',
         #'random_state' : 42
@@ -117,6 +121,7 @@ print(vres.data.shape, vres.target.shape)
 ########################################################
 ##                   LinearRegression                 ##
 ########################################################
+#from sklearn.linear_model import LinearRegression
 #linrParams = {
         #'normalize' : True
     #}
@@ -138,56 +143,70 @@ print(vres.data.shape, vres.target.shape)
 ########################################################
 ##                         SVR                        ##
 ########################################################
-#gridSearchRBF(dres, vres)
-#gridSearchPoly(dres, vres)
-#gridSearchLinear(dres, vres)
+#gridSearchRBF(dres.data, dres.target)
+#gridSearchPoly(dres.data, dres.target)
+#gridSearchLinear(dres.data, dres.target)
 
-#svrParams = {
-        #'kernel' : 'poly',
-        #'degree' : 2,
-        #'gamma' : 0.001,
-        #'coef0' : 3,
-        #'C' : 10,
-        #'epsilon' : 0.8
-    #}
+svrParams = {
+        'kernel' : 'rbf',
+        'degree' : 3,
+        'gamma' : 0.01,
+        'coef0' : 1,
+        'C' : 10,
+        'epsilon' : 0.001
+    }
+
+#model = Model('SVR', dres.data, dres.target, k=5)
+#model.learn(svrParams, scale=True)
+#mseCV, maeCV, r2sCV, pccCV = model.predict_k_fold(scale=True)
+#mseBCV, maeBCV, r2sBCV, pccBCV = model.predict_blind_data(vres.data, vres.target, scale=True)
+#mseB, maeB, r2sB, pccB = model.predict_blind_without_CV(vres.data, vres.target, scale=True)
+#print(svrParams['kernel'], mseCV, maeCV, r2sCV, pccCV, mseBCV, maeBCV, r2sBCV, pccBCV, mseB, maeB, r2sB, pccB)
+#acc, sens, spec = model.predict_risk_class_k_fold(outcomesTrain, scale=True)
+#print(acc, sens, spec)
+
 #testModel('SVR', svrParams, dres.data, dres.target, vres.data, vres.target)
-#saveModelSVR(svrParams, dres.data, dres.target, storeScalers=True)
-#model = load_model_from_file('SVR')
+##saveModel('SVR', svrParams, dres.data, dres.target, storeScalers=True)
+#estimator = load_model_from_file('SVR')
 #dataScaler, targetScaler = load_model_from_file('Scalers')
-#from .svr import predict
-#mse, mae, r2s, pcc, yPred = predict(model, vres.data, vres.target, dataScaler=dataScaler, targetScaler=targetScaler)
-#print(str(mse), str(mae), str(r2s), str(pcc))
+#model = Model('SVR', dres.data, dres.target, k=5)
+#model.total_estimator = estimator
+#mseB, maeB, r2sB, pccB = model.predict_blind_without_CV(vres.data, vres.target, scale=True)
+#print(mseB, maeB, r2sB, pccB)
 #print(model.get_params())
-#for i in range(vres.target.shape[0]) :
-    #print(vres.target[i], yPred[i])
-#for y in yPred :
-    #print(y)
 
 ########################################################
 ##                        MLPR                        ##
 ########################################################
-#gridSearch1Layer(dres, vres)
-#gridSearch2Layer(dres, vres)
+#gridSearch1Layer(dres.data, dres.target)
+#gridSearch2Layer(dres.data, dres.target)
 
-#mlprParams = {
-        #'activation' : 'relu',
-        #'hidden_layer_sizes' : (50,10),
-        #'learning_rate' : 'constant',
-        #'learning_rate_init' : 0.0001,
-        #'solver' : 'adam',
-        #'max_iter' : 10000,
-        #'alpha' : 0.0001,
-        #'random_state' : 42
-    #}
+mlprParams = {
+        'activation' : 'relu',
+        'hidden_layer_sizes' : (200,),
+        'learning_rate' : 'constant',
+        'learning_rate_init' : 0.0001,
+        'solver' : 'adam',
+        'max_iter' : 10000,
+        'alpha' : 0.0001,
+        'random_state' : 1
+    }
+
+#model = Model('MLPR', dres.data, dres.target, k=5)
+#model.learn(mlprParams, scale=True)
+#mseCV, maeCV, r2sCV, pccCV = model.predict_k_fold(scale=True)
+#mseBCV, maeBCV, r2sBCV, pccBCV = model.predict_blind_data(vres.data, vres.target, scale=True)
+#mseB, maeB, r2sB, pccB = model.predict_blind_without_CV(vres.data, vres.target, scale=True)
+#print(mlprParams['hidden_layer_sizes'], mseCV, maeCV, r2sCV, pccCV, mseBCV, maeBCV, r2sBCV, pccBCV, mseB, maeB, r2sB, pccB)
+#acc, sens, spec = model.predict_risk_class_k_fold(outcomesTrain, scale=True)
+#print(acc, sens, spec)
+
 #testModel('MLPR', mlprParams, dres.data, dres.target, vres.data, vres.target)
-#saveModelMLPR(mlprParams, dres.data, dres.target, storeScalers=True)
-#model = load_model_from_file('MLPR')
+##saveModel('MLPR', mlprParams, dres.data, dres.target, storeScalers=True)
+#estimator = load_model_from_file('MLPR')
 #dataScaler, targetScaler = load_model_from_file('Scalers')
-#from .mlpr import predict
-#mse, mae, r2s, pcc, yPred = predict(model, vres.data, vres.target, dataScaler=dataScaler, targetScaler=targetScaler)
-#print(str(mse), str(mae), str(r2s), str(pcc))
+#model = Model('MLPR', dres.data, dres.target, k=5)
+#model.total_estimator = estimator
+#mseB, maeB, r2sB, pccB = model.predict_blind_without_CV(vres.data, vres.target, scale=True)
+#print(mseB, maeB, r2sB, pccB)
 #print(model.get_params())
-#for i in range(vres.target.shape[0]) :
-    #print(vres.target[i], yPred[i])
-#for y in yPred :
-    #print(y)
