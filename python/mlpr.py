@@ -35,11 +35,11 @@ mlprParamGrid2 = {
         #'momentum' : [0.4, 0.7, 0.9]
     }
 
-def gridSearch1Layer(X, y) :
+def gridSearch1Layer(X, y, k=5) :
     #mlprParamGrid1Layer = mlprParamGrid1
     print('Activation', 'Learning_strategy', 'Layers', 'Learning_rate', 'MSE', 'MAE', 'R^2-Score', 'PCC')
     scale = True
-    model = Model('MLPR', X, y, k=5)
+    model = Model('MLPR', X, y, k)
     for a in mlprParamGrid1Layer['activation'] :
         for lr in mlprParamGrid1Layer['learning_rate'] :
             for hls in mlprParamGrid1Layer['hidden_layer_sizes'] :
@@ -59,11 +59,11 @@ def gridSearch1Layer(X, y) :
                     mse, mae, r2s, pcc = model.predict_k_fold(scale)
                     print(a, lr, hls, lri, round(mse, 3), round(mae, 3), round(r2s, 3), round(pcc, 3))
 
-def gridSearch2Layer(X, y) :
+def gridSearch2Layer(X, y, k=5) :
     print('Activation', 'Learning_strategy', 'Layers', 'Learning_rate', 'MSE', 'MAE', 'R^2-Score', 'PCC')
     #mlprParamGrid2Layer = mlprParamGrid2
     scale = True
-    model = Model('MLPR', X, y, k=5)
+    model = Model('MLPR', X, y, k)
     for a in mlprParamGrid2Layer['activation'] :
         for lr in mlprParamGrid2Layer['learning_rate'] :
             for hls in mlprParamGrid2Layer['hidden_layer_sizes'] :

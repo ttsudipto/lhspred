@@ -29,10 +29,10 @@ svrParamGridLinear = {
         #'epsilon' : [0.1]
     #}
 
-def gridSearchRBF(X, y) :
+def gridSearchRBF(X, y, k=5) :
     print('kernel', 'C', 'gamma', 'epsilon', 'MSE', 'MAE', 'R^2-Score', 'PCC')
     scale = True
-    model = Model('SVR', X, y, k=5)
+    model = Model('SVR', X, y, k)
     for c in svrParamGridRBF['C'] :
         for g in svrParamGridRBF['gamma'] :
             for e in svrParamGridRBF['epsilon'] :
@@ -41,10 +41,10 @@ def gridSearchRBF(X, y) :
                 mse, mae, r2s, pcc = model.predict_k_fold(scale)
                 print('RBF', c, g, e, round(mse, 3), round(mae, 3), round(r2s, 3), round(pcc, 3))
 
-def gridSearchPoly(X, y) :
+def gridSearchPoly(X, y, k=5) :
     print('kernel', 'degree', 'C', 'gamma', 'coef0', 'epsilon', 'MSE', 'MAE', 'R^2-Score', 'PCC')
     scale = True
-    model = Model('SVR', X, y, k=5)
+    model = Model('SVR', X, y, k)
     for d in svrParamGridPoly['degree'] :
         for c in svrParamGridPoly['C'] :
             for g in svrParamGridPoly['gamma'] :
@@ -55,10 +55,10 @@ def gridSearchPoly(X, y) :
                         mse, mae, r2s, pcc = model.predict_k_fold(scale)
                         print('poly', d, c, g, co, e, round(mse, 3), round(mae, 3), round(r2s, 3), round(pcc, 3))
 
-def gridSearchLinear(X, y) :
+def gridSearchLinear(X, y, k=5) :
     print('kernel', 'C', 'epsilon', 'MSE', 'MAE', 'R^2-Score', 'PCC')
     scale = True
-    model = Model('SVR', X, y, k=5)
+    model = Model('SVR', X, y, k)
     for c in svrParamGridLinear['C'] :
         for e in svrParamGridLinear['epsilon'] :
             param = {'kernel' : 'linear', 'C' : c, 'epsilon' : e}

@@ -143,11 +143,19 @@ print(vres.data.shape, vres.target.shape)
 ########################################################
 ##                         SVR                        ##
 ########################################################
-#gridSearchRBF(dres.data, dres.target)
-#gridSearchPoly(dres.data, dres.target)
-#gridSearchLinear(dres.data, dres.target)
+#gridSearchRBF(dres.data, dres.target, k=5)
+#gridSearchPoly(dres.data, dres.target, k=5)
+#gridSearchLinear(dres.data, dres.target, k=5)
 
-svrParams = {
+svrParamsK3 = {
+        'kernel' : 'rbf',
+        'degree' : 3,
+        'gamma' : 0.01,
+        'coef0' : 1,
+        'C' : 20,
+        'epsilon' : 0.5
+    }
+svrParamsK5 = {
         'kernel' : 'rbf',
         'degree' : 3,
         'gamma' : 0.01,
@@ -155,14 +163,28 @@ svrParams = {
         'C' : 10,
         'epsilon' : 0.001
     }
+svrParamsK10 = {
+        'kernel' : 'rbf',
+        'degree' : 3,
+        'gamma' : 0.01,
+        'coef0' : 1,
+        'C' : 15,
+        'epsilon' : 0.001
+    }
+svrParams = svrParamsK5
+svr_k = 5
 
-#model = Model('SVR', dres.data, dres.target, k=5)
+#model = Model('SVR', dres.data, dres.target, k=svr_k)
 #model.learn(svrParams, scale=True)
 #mseCV, maeCV, r2sCV, pccCV = model.predict_k_fold(scale=True)
 #mseBCV, maeBCV, r2sBCV, pccBCV = model.predict_blind_data(vres.data, vres.target, scale=True)
 #mseB, maeB, r2sB, pccB = model.predict_blind_without_CV(vres.data, vres.target, scale=True)
 #print(svrParams['kernel'], mseCV, maeCV, r2sCV, pccCV, mseBCV, maeBCV, r2sBCV, pccBCV, mseB, maeB, r2sB, pccB)
 #acc, sens, spec = model.predict_risk_class_k_fold(outcomesTrain, scale=True)
+#print(acc, sens, spec)
+#acc, sens, spec = model.predict_risk_class_blind_CV(vres.data, outcomesTest, scale=True)
+#print(acc, sens, spec)
+#acc, sens, spec = model.predict_risk_class_blind_without_CV(vres.data, outcomesTest, scale=True)
 #print(acc, sens, spec)
 
 #testModel('SVR', svrParams, dres.data, dres.target, vres.data, vres.target)
@@ -178,8 +200,8 @@ svrParams = {
 ########################################################
 ##                        MLPR                        ##
 ########################################################
-#gridSearch1Layer(dres.data, dres.target)
-#gridSearch2Layer(dres.data, dres.target)
+#gridSearch1Layer(dres.data, dres.target, k=5)
+#gridSearch2Layer(dres.data, dres.target, k=5)
 
 mlprParams = {
         'activation' : 'relu',
@@ -191,14 +213,19 @@ mlprParams = {
         'alpha' : 0.0001,
         'random_state' : 1
     }
+mlpr_k = 5
 
-#model = Model('MLPR', dres.data, dres.target, k=5)
+#model = Model('MLPR', dres.data, dres.target, k=mlpr_k)
 #model.learn(mlprParams, scale=True)
 #mseCV, maeCV, r2sCV, pccCV = model.predict_k_fold(scale=True)
 #mseBCV, maeBCV, r2sBCV, pccBCV = model.predict_blind_data(vres.data, vres.target, scale=True)
 #mseB, maeB, r2sB, pccB = model.predict_blind_without_CV(vres.data, vres.target, scale=True)
 #print(mlprParams['hidden_layer_sizes'], mseCV, maeCV, r2sCV, pccCV, mseBCV, maeBCV, r2sBCV, pccBCV, mseB, maeB, r2sB, pccB)
 #acc, sens, spec = model.predict_risk_class_k_fold(outcomesTrain, scale=True)
+#print(acc, sens, spec)
+#acc, sens, spec = model.predict_risk_class_blind_CV(vres.data, outcomesTest, scale=True)
+#print(acc, sens, spec)
+#acc, sens, spec = model.predict_risk_class_blind_without_CV(vres.data, outcomesTest, scale=True)
 #print(acc, sens, spec)
 
 #testModel('MLPR', mlprParams, dres.data, dres.target, vres.data, vres.target)

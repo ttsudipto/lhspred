@@ -12,7 +12,7 @@ import copy
 from .density import compute_positiveness, compute_negativeness
 
 class Model :
-    """Class encapsulating an estimator class that implements a learning model of Scikit-learn and the data.
+    """Class encapsulating an estimator that implements a learning model of Scikit-learn and the data.
 
     It contains methods for training and testing the learning model with 
     k-fold cross validation. It also contains method to predict blind dataset.
@@ -152,6 +152,42 @@ class Model :
             tn, fp, fn, tp = confusion_matrix(risk_test, risk_pred).ravel()
             specificities.append((tn/1.0) / (tn+fp))
         return (mean(accuracies), mean(sensitivities), mean(specificities))
+    
+    def predict_risk_class_blind_CV(self, b_data, risk_scores, scale=True) :
+        sensitivities = []
+        specificities = []
+        accuracies = []
+        for f in range(self.n_folds) :
+            y_pred = self.predict(self.estimators[f], b_data, scale)
+            positiveness = [compute_positiveness(y) for y in y_pred]
+            negativeness = [compute_negativeness(y) for y in y_pred]
+            risk_pred = []
+            for i in range(len(y_pred)) :
+                if positiveness[i] > negativeness[i] :
+                    risk_pred.append(1)
+                else :
+                    risk_pred.append(0)
+            sensitivities.append(recall_score(risk_scores, risk_pred))
+            accuracies.append(accuracy_score(risk_scores, risk_pred))
+            tn, fp, fn, tp = confusion_matrix(risk_scores, risk_pred).ravel()
+            specificities.append((tn/1.0) / (tn+fp))
+        return (mean(accuracies), mean(sensitivities), mean(specificities))
+    
+    def predict_risk_class_blind_without_CV(self, b_data, risk_scores, scale=True) :
+        sensitivities = []
+        specificities = []
+        accuracies = []
+        y_pred = self.predict(self.total_estimator, b_data, scale)
+        positiveness = [compute_positiveness(y) for y in y_pred]
+        negativeness = [compute_negativeness(y) for y in y_pred]
+        risk_pred = []
+        for i in range(len(y_pred)) :
+            if positiveness[i] > negativeness[i] :
+                risk_pred.append(1)
+            else :
+                risk_pred.append(0)
+        tn, fp, fn, tp = confusion_matrix(risk_scores, risk_pred).ravel()
+        return (accuracy_score(risk_scores, risk_pred), recall_score(risk_scores, risk_pred), (tn/1.0) / (tn+fp))
 
     def write_to_csv(self, filename, mae, mse, r2s) :
         """Method to write the results into a CSV file"""
