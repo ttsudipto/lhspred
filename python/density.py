@@ -76,6 +76,17 @@ def compute_negativeness(score) :
     #print(neg_func[score_index:,1])
     return simps(neg_func[score_index:,1], neg_func[score_index:,0])
 
+def print_histogram(data, target) :
+    pos_indices, neg_indices = split_pos_neg(target)
+    min = 0
+    max = 25
+    neg_data = data[neg_indices]
+    pos_data = data[pos_indices]
+    neg_hist = np.histogram(neg_data, bins=25, range=(min, max))
+    pos_hist = np.histogram(pos_data, bins=25, range=(min, max))
+    print(neg_hist)
+    print(pos_hist)
+
 def execute(data, target, ch) :
     """Driver function"""
 
