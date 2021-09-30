@@ -1,5 +1,5 @@
 from .resource import DataResource, storeResourceCSV
-from .density import execute as densityExec, compute_positiveness, compute_negativeness, split_pos_neg
+from .density import execute as densityExec, compute_positiveness, compute_negativeness, split_pos_neg, print_histogram
 from sklearn.model_selection import train_test_split
 from .svr import gridSearchRBF, gridSearchPoly, gridSearchLinear
 from .mlpr import gridSearch1Layer, gridSearch2Layer
@@ -7,11 +7,21 @@ from .pickler import saveModel, testModel, load_model_from_file
 from .model import Model
 import numpy as np
 
+all_data_columns = ['age', 'platelet count', 'white blood cell count',
+                    'NLR', 'total bilirubin', 'ALT', 'AST', 'albumin',
+                    'creatinine', 'creatine kinase', 'lactic dehydrogenase', 'C-reactive protein']
+p_less_5_data_columns = ['age', 'NLR', 'ALT', 'AST',
+                         'albumin', 'creatine kinase', 'lactic dehydrogenase', 'C-reactive protein']
+
 res1 = DataResource('derivation.csv')
+#res1.data_columns = all_data_columns
+#res1.data_columns = p_less_5_data_columns
 res1.read()
 print(res1.data.shape, res1.target.shape)
 
 res2 = DataResource('validation.csv')
+#res2.data_columns = all_data_columns
+#res2.data_columns = p_less_5_data_columns
 res2.read()
 print(res2.data.shape, res2.target.shape)
 
@@ -21,9 +31,13 @@ print(mergedData.shape, mergedTarget.shape)
 
 XTrain, XTest, yTrain, yTest = train_test_split(mergedData, mergedTarget, test_size=0.1, random_state=1)
 dres = DataResource('derivation.csv')
+#dres.data_columns = all_data_columns
+#dres.data_columns = p_less_5_data_columns
 dres.data = XTrain
 dres.target = yTrain
 vres = DataResource('derivation.csv')
+#vres.data_columns = all_data_columns
+#vres.data_columns = p_less_5_data_columns
 vres.data = XTest
 vres.target = yTest
 print(dres.data.shape, dres.target.shape)
@@ -52,7 +66,7 @@ print(vres.data.shape, vres.target.shape)
 ##                         F-test                     ##
 ########################################################
 #from sklearn.feature_selection import f_regression, f_classif
-#from scipy.stats import iqr
+#from scipy.stats import iqr, ttest_ind
 #from statistics import median
 #medians = []
 #iqrs = []
@@ -64,6 +78,7 @@ print(vres.data.shape, vres.target.shape)
     #iqrs.append(iqr(dres.data[:,j]))
     #medians.append(median(dres.data[:,j]))
 #fval, pval = f_regression(dres.data, dres.target)
+##fval, pval = ttest_ind(dres.data, dres.target, equal_var=False)
 #print('Clinical features', 'Min', 'Max', 'IQR', 'Median', 'F-value', 'p-value')
 #for i in range(len(fval)) :
     #print(dres.data_columns[i], round(mins[i], 3), round(maxs[i], 3), round(iqrs[i], 3), round(medians[i], 3), round(fval[i], 3), pval[i])
@@ -81,6 +96,7 @@ print(vres.data.shape, vres.target.shape)
 #densityExec(CTScores, outcomes, 1) # all
 #densityExec(CTScores, outcomes, 2) # negatives
 #densityExec(CTScores, outcomes, 3) # positives
+#print_histogram(CTScores, outcomes)
 
 #import numpy as np
 #scores = np.linspace(0, 25, 100)
