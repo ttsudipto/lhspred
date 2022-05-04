@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Datasets - LHSPred</title>
+        <title>Datasets - LHSPred - Lung Health Severity Prediction</title>
         <link rel = "stylesheet" type = "text/css" href = "css/main.css" />
     </head>
     <body>
