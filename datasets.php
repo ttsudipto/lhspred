@@ -54,7 +54,7 @@
                 $text1 = "<p style=\"font-size: 1.2em; width:76%; margin: 0% 12% 0% 12%; \">
                             The 
                             <a href=\"https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-18786-x/MediaObjects/41467_2020_18786_MOESM4_ESM.xlsx\">
-                            original dataset</a> was published by Feng Z. <i>et al.</i>
+                            original dataset</a> was published by Feng Z. <i>et al.</i> (2020)
                             (<a href=\"https://doi.org/10.1038/s41467-020-18786-x\">https://doi.org/10.1038/s41467-020-18786-x</a>).
                             </p><br/>";
         
@@ -79,8 +79,12 @@
                 }
                 echo "</table>";
             ?>
-            <br/><hr/>
-            <p>&nbsp;</p>
         </div>
+        <div style="clear:both;"><br/><hr/></div>
+        <p style="font-size:0.8em;text-align:center;">
+            This work is accepted for publication in the <i>Biomedical Signal Processing and Control</i> journal. 
+            Please contact Dr. Sudipto Saha (<a href="mailto:ssaha4@jcbose.ac.in">ssaha4@jcbose.ac.in</a>)
+            regarding any further queries.
+        </p>
     </body>
 </html>

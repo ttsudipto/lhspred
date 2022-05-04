@@ -170,7 +170,11 @@
             <?php echo "<script>get_density('plot_container',".round(floatval($result->score), 3).");</script>"; ?>
             
             <br/><hr/>
-            <p>&nbsp;</p>
+            <p style="font-size:0.8em;text-align:center;">
+                This work is accepted for publication in the <i>Biomedical Signal Processing and Control</i> journal. 
+                Please contact Dr. Sudipto Saha (<a href="mailto:ssaha4@jcbose.ac.in">ssaha4@jcbose.ac.in</a>)
+                regarding any further queries.
+            </p>
         </div>
     </body>
 </html>
