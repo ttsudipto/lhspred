@@ -171,7 +171,8 @@
             
             <br/><hr/>
             <p style="font-size:0.8em;text-align:center;">
-                This work is accepted for publication in the <i>Biomedical Signal Processing and Control</i> journal. 
+                Bhattacharjee S. <i>et al.</i>, <i>Biomed Signal Process Control</i> (2022), 77:103745. <i>doi:</i> 
+                <a href="https://doi.org/10.1016/j.bspc.2022.103745" target="_blank">10.1016/j.bspc.2022.103745</a>.
                 Please contact Dr. Sudipto Saha (<a href="mailto:ssaha4@jcbose.ac.in">ssaha4@jcbose.ac.in</a>)
                 regarding any further queries.
             </p>

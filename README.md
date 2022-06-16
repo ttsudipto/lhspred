@@ -7,8 +7,12 @@ trained with COVID-19 patients' data to determine a score
 that evaluates the involvement of lesions in the lungs. This computed score is then 
 used to predict risk of pneumonia.
 
-*** This work is **accepted** for publication in the ***Biomedical Signal Processing and Control*** 
-journal (April 27, 2022).
+**Cite as:** 
+
+>Bhattacharjee, S., Saha, B., Bhattacharyya, P., &amp; Saha, S. (2022). 
+LHSPred: A web based application for predicting lung health severity. 
+*Biomedical signal processing and control*, 77, 103745. 
+[https://doi.org/10.1016/j.bspc.2022.103745](https://doi.org/10.1016/j.bspc.2022.103745).
 
 ## Using the tool
 LHSPred is available at: http://dibresources.jcbose.ac.in/ssaha4/lhspred.
@@ -23,6 +27,7 @@ The patient data was originally published by
 
 ## Development
 It is deployed in a Apache HTTPD server. Python libraries used :
+
 * numpy
 * scikit-learn (Version-`0.20.0`)
 * joblib (Version-`0.14.1`)
