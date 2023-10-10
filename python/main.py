@@ -5,6 +5,7 @@ from .svr import gridSearchRBF, gridSearchPoly, gridSearchLinear
 from .mlpr import gridSearch1Layer, gridSearch2Layer
 from .pickler import saveModel, testModel, load_model_from_file
 from .model import Model
+from .roc import plot_roc_model_cv, plot_roc_model_blind_cv, plot_roc_model_blind
 import numpy as np
 
 all_data_columns = ['age', 'platelet count', 'white blood cell count',
@@ -213,6 +214,11 @@ svr_k = 5
 #print(mseB, maeB, r2sB, pccB)
 #print(model.get_params())
 
+#plot_roc_model_cv(model, outcomesTrain, verbose=True)
+#plot_roc_model_blind_cv(model, vres.data, outcomesTest, verbose=True)
+#plot_roc_model_blind(model, vres.data, outcomesTest, verbose=True)
+#plot_roc_model_blind(model, mergedData, outcomes, verbose=True)
+
 ########################################################
 ##                        MLPR                        ##
 ########################################################
@@ -253,3 +259,8 @@ mlpr_k = 5
 #mseB, maeB, r2sB, pccB = model.predict_blind_without_CV(vres.data, vres.target, scale=True)
 #print(mseB, maeB, r2sB, pccB)
 #print(model.get_params())
+
+#plot_roc_model_cv(model, outcomesTrain, verbose=True)
+#plot_roc_model_blind_cv(model, vres.data, outcomesTest, verbose=True)
+#plot_roc_model_blind(model, vres.data, outcomesTest, verbose=True)
+#plot_roc_model_blind(model, mergedData, outcomes, verbose=True)
